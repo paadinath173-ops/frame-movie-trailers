@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="description" content="Discover your next favourite movie trailer with frame.">
+<title>frame. — Discover your next favourite</title>
+<style>
+:root{color-scheme:light;--bg:#f5f5f7;--paper:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:#d2d2d7;--blue:#06c;--max:1080px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+button,input{font:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #0071e3;outline-offset:3px}
+.nav{height:58px;position:sticky;top:0;z-index:20;background:rgba(255,255,255,.86);backdrop-filter:saturate(130%) blur(8px);border-bottom:1px solid rgba(0,0,0,.08)}
+.nav-inner{max-width:var(--max);height:100%;padding:0 24px;margin:auto;display:flex;align-items:center;gap:32px}
+.brand{font-size:24px;letter-spacing:-1.3px;font-weight:700;color:var(--ink);white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:28px;margin:auto;font-size:13px}
+.nav-links a{color:#424245;transition:color .2s}.nav-links a:hover{color:var(--blue);text-decoration:none}
+.nav-search{width:190px;border:1px solid transparent;border-radius:8px;background:#f5f5f7;padding:8px 11px;font-size:13px;outline-offset:2px}
+.menu-toggle{display:none;border:0;background:none;padding:8px;color:var(--ink);font-size:22px;cursor:pointer}
+main{max-width:var(--max);padding:0 24px;margin:auto}
+.hero{text-align:center;padding:94px 0 66px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 20px}
+h1{font-size:clamp(42px,7vw,76px);line-height:1.04;letter-spacing:-.065em;font-weight:650;margin:0 auto 20px;max-width:850px}
+.hero p{font-size:clamp(17px,2vw,21px);color:var(--muted);margin:0 0 30px;letter-spacing:-.02em}
+.search-wrap{max-width:520px;margin:0 auto;position:relative}
+.search-wrap input{width:100%;border:1px solid #d2d2d7;border-radius:12px;padding:16px 18px 16px 46px;background:#fff;font-size:16px;box-shadow:0 2px 5px rgba(0,0,0,.025);transition:border-color .2s,box-shadow .2s}
+.search-wrap input:focus{border-color:#0071e3;box-shadow:0 0 0 4px rgba(0,113,227,.12);outline:none}
+.search-icon{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:#86868b;font-size:19px;pointer-events:none}
+.hero-note{font-size:12px!important;margin-top:14px!important;margin-bottom:0!important}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:0 0 22px}
+h2{font-size:30px;letter-spacing:-.045em;margin:0;font-weight:650}
+.result-count{font-size:13px;color:var(--muted);white-space:nowrap}
+.library{padding:22px 0 86px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.filter{border:1px solid #d2d2d7;border-radius:999px;background:rgba(255,255,255,.55);padding:9px 14px;font-size:13px;color:#424245;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.filter:hover{border-color:#8e8e93}.filter[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.list{border-top:1px solid var(--line);background:rgba(255,255,255,.45)}
+.movie-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:18px;align-items:center;padding:22px 20px;border-bottom:1px solid var(--line);transition:background .2s}
+.movie-row:hover{background:rgba(255,255,255,.8)}
+.number{font-size:12px;color:#86868b;font-variant-numeric:tabular-nums;align-self:start;padding-top:4px}
+.movie-title{font-size:19px;font-weight:600;letter-spacing:-.025em;margin:0 0 7px}
+.meta{font-size:11px;letter-spacing:.075em;color:var(--muted);font-weight:600;text-transform:uppercase;line-height:1.6}
+.watch{font-size:14px;white-space:nowrap;align-self:center}
+.watch span{display:inline-block;transition:transform .2s}.watch:hover span{transform:translate(2px,-2px)}
+.empty{padding:52px 20px;text-align:center;border-bottom:1px solid var(--line);color:var(--muted)}
+.empty strong{display:block;color:var(--ink);font-size:18px;margin-bottom:8px}
+.collections{padding:0 0 78px}
+.collection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.collection{background:#fff;border:1px solid #e5e5e7;border-radius:14px;padding:23px 20px;min-height:132px;transition:transform .2s,border-color .2s}
+.collection:hover{transform:translateY(-2px);border-color:#c7c7cc}
+.collection small{color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.collection h3{font-size:19px;letter-spacing:-.03em;margin:13px 0 8px}
+.collection p{font-size:13px;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--line);background:#f5f5f7}
+.footer-inner{max-width:var(--max);margin:auto;padding:25px 24px 32px;display:flex;align-items:center;justify-content:space-between;gap:15px;color:var(--muted);font-size:12px}
+.footer-brand{font-size:20px;font-weight:700;letter-spacing:-1px;color:var(--ink)}
+@media(max-width:700px){
+ .nav-inner{padding:0 18px;gap:12px}.nav-links{display:none;position:absolute;top:58px;left:0;right:0;background:rgba(255,255,255,.98);padding:18px 22px 22px;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:18px}.nav-links.open{display:flex}.nav-search{margin-left:auto;width:min(42vw,190px)}.menu-toggle{display:block}.hero{padding:76px 0 55px}main{padding:0 18px}.movie-row{grid-template-columns:28px minmax(0,1fr);gap:12px;padding:20px 12px}.watch{grid-column:2;justify-self:start;margin-top:-3px}.movie-title{font-size:17px}.collection-grid{grid-template-columns:1fr}.collection{min-height:unset}.section-head{align-items:start;flex-direction:column;gap:8px}.footer-inner{padding-left:18px;padding-right:18px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+.player-overlay{position:fixed;inset:0;z-index:100;background:rgba(15,15,17,.82);display:flex;align-items:center;justify-content:center;padding:20px}
+.player-overlay[hidden]{display:none}
+.player-dialog{width:min(100%,1000px);background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 24px 90px rgba(0,0,0,.35)}
+.player-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #e5e5e7}
+.player-bar h2{font-size:17px;letter-spacing:-.02em;margin:0}
+.player-close{border:0;background:#f5f5f7;border-radius:50%;width:34px;height:34px;font-size:25px;line-height:1;cursor:pointer;color:#1d1d1f}
+.player-frame-wrap{background:#000;aspect-ratio:16/9;width:100%}
+.player-frame-wrap iframe{display:block;width:100%;height:100%;border:0}
+.player-footer{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 18px;font-size:12px}
+.player-note{color:#6e6e73}
+@media(max-width:600px){.player-overlay{padding:10px}.player-dialog{border-radius:12px}.player-footer{align-items:flex-start;flex-direction:column}.player-frame-wrap{aspect-ratio:16/9}}
+
+
+/* Liquid-glass controls: translucent layers, soft refraction, and glossy highlights */
+:root{
+ --glass-edge:rgba(255,255,255,.88);
+ --glass-fill:rgba(255,255,255,.58);
+ --glass-shadow:0 8px 24px rgba(31,38,55,.08),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.28);
+}
+.nav{
+ background:rgba(248,248,252,.66);
+ -webkit-backdrop-filter:saturate(125%) blur(8px);
+ backdrop-filter:saturate(125%) blur(8px);
+ border-bottom:1px solid rgba(255,255,255,.78);
+ box-shadow:0 4px 24px rgba(25,30,45,.045),inset 0 1px rgba(255,255,255,.9);
+}
+.nav-search,.search-wrap input{
+ background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(245,247,252,.64));
+ border:1px solid rgba(255,255,255,.95);
+ box-shadow:0 5px 18px rgba(25,35,55,.055),inset 0 1px 0 #fff,inset 0 -1px 0 rgba(120,130,150,.08);
+ -webkit-backdrop-filter:blur(0) saturate(115%);
+ backdrop-filter:blur(0) saturate(115%);
+ transition:box-shadow .22s ease,border-color .22s ease,transform .22s ease,background .22s ease;
+}
+.nav-search{border-radius:999px;padding:9px 15px}
+.search-wrap input{border-radius:18px;padding-top:17px;padding-bottom:17px}
+.nav-search:focus,.search-wrap input:focus{
+ border-color:rgba(0,113,227,.35);
+ box-shadow:0 0 0 4px rgba(0,113,227,.10),0 9px 26px rgba(25,35,55,.08),inset 0 1px 0 #fff;
+}
+.filters{gap:10px}
+.filter,.menu-toggle,.player-close{
+ position:relative;isolation:isolate;overflow:hidden;
+ border:1px solid rgba(255,255,255,.94);
+ background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(237,241,248,.55));
+ color:#34343a;
+ box-shadow:0 4px 12px rgba(25,35,55,.055),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(130,140,160,.10);
+ -webkit-backdrop-filter:blur(0) saturate(115%);
+ backdrop-filter:blur(0) saturate(115%);
+ transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease,color .2s ease;
+}
+.filter{padding:10px 16px}
+.filter::before,.menu-toggle::before,.player-close::before{
+ content:"";position:absolute;inset:1px 1px auto;height:48%;border-radius:inherit;
+ background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(255,255,255,0));
+ pointer-events:none;z-index:-1;
+}
+.filter:hover,.menu-toggle:hover,.player-close:hover{
+ transform:translateY(-1px);
+ border-color:rgba(255,255,255,1);
+ box-shadow:0 8px 20px rgba(25,35,55,.10),inset 0 1px 0 #fff,inset 0 -1px 0 rgba(130,140,160,.12);
+}
+.filter[aria-pressed="true"]{
+ color:#fff;border-color:rgba(255,255,255,.45);
+ background:linear-gradient(145deg,rgba(53,57,68,.96),rgba(24,25,30,.96));
+ box-shadow:0 6px 18px rgba(20,25,35,.20),inset 0 1px 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(0,0,0,.15);
+}
+.watch{
+ display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:999px;
+ color:#075fc2;font-weight:600;
+ border:1px solid rgba(255,255,255,.96);
+ background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(232,241,255,.70));
+ box-shadow:0 5px 14px rgba(0,83,180,.08),inset 0 1px 0 #fff,inset 0 -1px 0 rgba(0,80,180,.07);
+ -webkit-backdrop-filter:none;backdrop-filter:none;
+ transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.watch:hover{transform:translateY(-2px);text-decoration:none;color:#004b9b;box-shadow:0 9px 22px rgba(0,83,180,.14),inset 0 1px 0 #fff}
+.watch span{transition:transform .2s ease}
+.collection{
+ background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(248,249,252,.64));
+ border:1px solid rgba(255,255,255,.96);border-radius:20px;
+ box-shadow:0 8px 24px rgba(31,38,55,.045),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(120,130,150,.07);
+ -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.collection:hover{transform:translateY(-3px);border-color:#fff;box-shadow:0 14px 30px rgba(31,38,55,.09),inset 0 1px 0 #fff}
+.list{background:rgba(255,255,255,.35);border-top-color:rgba(180,185,196,.48);border-radius:18px;overflow:hidden;box-shadow:0 8px 26px rgba(31,38,55,.035),inset 0 1px 0 rgba(255,255,255,.9)}
+.movie-row{border-bottom-color:rgba(180,185,196,.40)}
+.movie-row:hover{background:linear-gradient(90deg,rgba(255,255,255,.76),rgba(255,255,255,.42))}
+.player-dialog{background:rgba(250,250,252,.94);border:1px solid rgba(255,255,255,.65);border-radius:22px;box-shadow:0 28px 100px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.9);overflow:hidden}
+.player-bar{background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.player-close{display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(231,234,241,.72));border-radius:50%;width:38px;height:38px;font-size:25px}
+.menu-toggle{border-radius:13px;width:40px;height:40px;padding:0}
+@media(max-width:700px){
+ .nav-links.open{background:rgba(248,248,252,.86);-webkit-backdrop-filter:blur(8px) saturate(125%);backdrop-filter:blur(8px) saturate(125%);border-bottom:1px solid rgba(255,255,255,.8);box-shadow:0 12px 25px rgba(25,30,45,.08)}
+ .watch{padding:9px 14px}
+}
+
+.load-more-wrap{display:flex;justify-content:center;padding:22px;border-top:1px solid rgba(180,185,196,.4)}
+.load-more{cursor:pointer;border:1px solid rgba(255,255,255,.95);border-radius:999px;padding:12px 18px;font-weight:600;font-size:13px;color:#303038;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(231,236,246,.82));box-shadow:0 4px 12px rgba(25,35,55,.06),inset 0 1px 0 #fff;transition:transform .15s ease,box-shadow .15s ease}
+.load-more:hover{transform:translateY(-1px);box-shadow:0 7px 16px rgba(25,35,55,.09),inset 0 1px 0 #fff}
+@media(prefers-reduced-motion:reduce){.load-more{transition:none}}
+@media(prefers-reduced-motion:reduce){.filter,.watch,.collection,.menu-toggle,.player-close{transition:none}}
+
+
+/* Cinematic scene reveal: static image, sliding matte panels, staggered text. No zoom/parallax. */
+.scroll-cinema{width:100%;margin:48px auto 0;max-width:1000px;position:relative}
+.cinema-visual{height:clamp(250px,43vw,440px);position:relative;overflow:hidden;border-radius:26px;background:#101116;isolation:isolate;box-shadow:0 20px 55px rgba(20,25,38,.14)}
+.cinema-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 52%;display:block;transform:none!important;will-change:auto}
+.cinema-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,10,18,.72),rgba(8,10,18,.25) 58%,rgba(8,10,18,.08)),linear-gradient(0deg,rgba(8,10,18,.32),transparent 50%);pointer-events:none}
+.cinema-matte{position:absolute;inset:0;z-index:2;pointer-events:none;display:grid;grid-template-columns:1fr 1fr}
+.cinema-matte span{background:linear-gradient(135deg,#202127,#090a0d);transition:transform .85s cubic-bezier(.22,.75,.2,1);will-change:transform}
+.cinema-matte span:first-child{border-right:1px solid rgba(255,255,255,.14);transform:translateX(0)}
+.cinema-matte span:last-child{border-left:1px solid rgba(255,255,255,.08);transform:translateX(0)}
+.cinema-copy{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;padding:clamp(24px,6vw,64px);color:#fff;pointer-events:none}
+.cinema-kicker,.cinema-copy strong,.cinema-hint{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
+.cinema-kicker{font-size:10px;letter-spacing:.18em;font-weight:700;margin-bottom:16px;transition-delay:.24s}
+.cinema-copy strong{font-size:clamp(30px,5.3vw,60px);line-height:1.02;letter-spacing:-.055em;font-weight:650;text-shadow:0 2px 24px rgba(0,0,0,.12);transition-delay:.36s}
+.cinema-hint{margin-top:24px;font-size:12px;letter-spacing:.03em;color:rgba(255,255,255,.86);transition-delay:.48s}
+.cinema-hint span{display:inline-block;margin-left:8px}
+.cinema-visual.is-revealed .cinema-matte span:first-child{transform:translateX(-101%)}
+.cinema-visual.is-revealed .cinema-matte span:last-child{transform:translateX(101%)}
+.cinema-visual.is-revealed .cinema-kicker,.cinema-visual.is-revealed .cinema-copy strong,.cinema-visual.is-revealed .cinema-hint{opacity:1;transform:translateY(0)}
+@media(max-width:700px){.scroll-cinema{margin-top:34px}.cinema-visual{height:300px;border-radius:20px}.cinema-copy{padding:25px}.cinema-kicker{font-size:9px;margin-bottom:13px}.cinema-copy strong{font-size:clamp(32px,9vw,44px)}.cinema-hint{margin-top:18px}.cinema-matte span{transition-duration:.65s}}
+@media(prefers-reduced-motion:reduce){.cinema-matte span,.cinema-kicker,.cinema-copy strong,.cinema-hint{transition:none!important;transform:none!important;opacity:1!important}.cinema-matte{display:none}}
+
+</style>
+</head>
+<body>
+<header class="nav">
+ <div class="nav-inner">
+  <a class="brand" href="#home" aria-label="frame home">frame.</a>
+  <nav class="nav-links" id="primary-nav" aria-label="Main navigation">
+   <a href="#movies">Movies</a><a href="#languages">Languages</a><a href="#collections">Collections</a>
+  </nav>
+  <input class="nav-search" id="nav-search" type="search" placeholder="Search" aria-label="Search movies and trailers">
+  <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+ </div>
+</header>
+<main id="home">
+ <section class="hero" aria-labelledby="hero-title">
+  <p class="eyebrow">A better way to discover films</p>
+  <h1 id="hero-title">Discover your next favourite.</h1>
+  <p>Great movies start with a great trailer.</p>
+  <div class="search-wrap"><span class="search-icon" aria-hidden="true">⌕</span><input id="main-search" type="search" placeholder="Search movies and trailers" aria-label="Search movies and trailers"></div>
+  <p class="hero-note">500 titles per language · catalogue expands from Wikipedia when online.</p>
+  <section class="scroll-cinema" id="scroll-cinema" aria-label="Cinematic scroll feature">
+   <div class="cinema-visual">
+    <img class="cinema-image" id="cinema-image" src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1600&q=75" alt="A cinematic movie theatre with rows of seats and a glowing screen" loading="eager" fetchpriority="high" decoding="async">
+    <div class="cinema-shade" aria-hidden="true"></div>
+    <div class="cinema-matte" aria-hidden="true"><span></span><span></span></div>
+    <div class="cinema-copy"><span class="cinema-kicker">THE ART OF THE FIRST LOOK</span><strong>Every story<br>starts with a frame.</strong><span class="cinema-hint">Scroll to explore <span aria-hidden="true">↓</span></span></div>
+   </div>
+  </section>
+ </section>
+ <section class="library" id="movies" aria-labelledby="library-title">
+  <div class="section-head"><h2 id="library-title">Now showing</h2><span class="result-count" id="result-count" aria-live="polite">Loading collection</span></div>
+  <div class="filters" id="languages" role="group" aria-label="Filter by language">
+   <button class="filter" data-language="All Movies" aria-pressed="true">All Movies</button>
+   <button class="filter" data-language="Malayalam" aria-pressed="false">Malayalam</button>
+   <button class="filter" data-language="Tamil" aria-pressed="false">Tamil</button>
+   <button class="filter" data-language="Hindi" aria-pressed="false">Hindi</button>
+   <button class="filter" data-language="Telugu" aria-pressed="false">Telugu</button>
+   <button class="filter" data-language="Kannada" aria-pressed="false">Kannada</button>
+   <button class="filter" data-language="English" aria-pressed="false">English</button>
+   <button class="filter" data-language="Other Languages" aria-pressed="false">Other Languages</button>
+  </div>
+  <div class="list" id="movie-list" aria-live="polite"></div>
+ </section>
+ <section class="collections" id="collections" aria-labelledby="collections-title">
+  <div class="section-head"><h2 id="collections-title">A little inspiration.</h2></div>
+  <div class="collection-grid">
+   <a class="collection" href="#movies" data-collection="Malayalam"><small>01 / Language</small><h3>Made in Malayalam ↗</h3><p>Stories from closer to home.</p></a>
+   <a class="collection" href="#movies" data-collection="English"><small>02 / Language</small><h3>In English ↗</h3><p>Find your next big-screen world.</p></a>
+   <a class="collection" href="#movies" data-collection="All Movies"><small>03 / The collection</small><h3>Browse everything ↗</h3><p>One good trailer can change your plans.</p></a>
+  </div>
+ </section>
+</main>
+
+<div class="player-overlay" id="player-overlay" hidden>
+ <section class="player-dialog" role="dialog" aria-modal="true" aria-labelledby="player-title">
+  <div class="player-bar">
+   <h2 id="player-title">Now playing</h2>
+   <button type="button" class="player-close" id="player-close" aria-label="Close trailer player">×</button>
+  </div>
+  <div class="player-frame-wrap" id="player-frame-wrap"></div>
+  <div class="player-footer">
+   <span class="player-note">Use the fullscreen control in the player for a full-screen view.</span>
+   <a id="external-trailer-link" href="#" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>
+  </div>
+ </section>
+</div>
+
+<footer><div class="footer-inner"><a class="footer-brand" href="#home">frame.</a><span>Discover something worth watching.</span><span>© <span id="year"></span> frame.</span></div></footer>
+<script>
+"use strict";
+const suppliedTrailers = [
+ {title:"DISCO", language:"Malayalam", genre:"Comedy", year:null, videoId:"EzMxyEKB0cg", source:"supplied"},
+ {title:"Provided trailer 02", language:null, genre:null, year:null, videoId:"ygmleYE6gC4", source:"supplied"},
+ {title:"Aakasamlo Oka Tara", language:"Telugu", genre:null, year:2026, videoId:"zGpoXMRG5Wo", source:"supplied"},
+ {title:"Neekkam", language:"Malayalam", genre:null, year:null, videoId:"SJMF1KEmnlY", source:"supplied"},
+ {title:"Udumbanchola Vision", language:"Malayalam", genre:"Thriller", year:2026, videoId:"zi7-R7kiUHk", source:"supplied"}
+];
+const films = [
+ {title:"Ranabaali",language:"Telugu",year:2026},
+ {title:"Chiram",language:"Malayalam",year:2026},
+ {title:"Avaraachan & Sons",language:"Malayalam",year:2026},
+ {title:"The Third Murder",language:"Malayalam",year:2026},
+ {title:"Izhakalkkappuram (The Unseen Thread)",language:"Malayalam",year:2026},
+ {title:"Don't Trouble the Trouble",language:"Malayalam",year:2026},
+ {title:"Baththa",language:"Tamil",year:2026},
+ {title:"Sigma",language:"Tamil",year:2026},
+ {title:"Drones",language:"Tamil",year:2026},
+ {title:"Jailer 2",language:"Tamil",year:2026},
+ {title:"Garividi Lakshmi",language:"Telugu",year:2026},
+ {title:"Crazy Kalyanam",language:"Telugu",year:2026},
+ {title:"Mudhol",language:"Kannada",year:2026},
+ {title:"Dorothy",language:"Tamil",year:2026},
+ {title:"Drishyam: The Conclusion",language:"Hindi",year:2026},
+ {title:"Prem Keetanu",language:"Hindi",year:2026},
+ {title:"Pooja Meri Jaan",language:"Hindi",year:2026},
+ {title:"Reporting Live",language:"Hindi",year:2026},
+ {title:"Prahaar: The Untold Story of Ujjwal Nikam",language:"Hindi",year:2026},
+ {title:"Nayyi Navelli",language:"Hindi",year:2026},
+ {title:"Jeet Ki Zid",language:"Hindi",year:2026},
+ {title:"Dhurandhar: The Revenge",language:"Hindi",year:2026},
+ {title:"Border 2",language:"Hindi",year:2026},
+ {title:"Digger",language:"English",year:2026},
+ {title:"Verity",language:"English",year:2026},
+ {title:"Soulm8te",language:"English",year:2026},
+ {title:"Rolling Loud: The Movie",language:"English",year:2026},
+ {title:"Ghost in the Cell",language:"English",year:2026},
+ {title:"Appofeniacs",language:"English",year:2026},
+ {title:"Street Fighter",language:"English",year:2026},
+ {title:"Clayface",language:"English",year:2026},
+ {title:"Dune: Part Three",language:"English",year:2026},
+ {title:"Udumbanchola Vision",language:"Malayalam",year:2026},
+ {title:"Pehla Pyaar Doosri Baar",language:"Hindi",year:2026},
+ {title:"Irandu Vaanam",language:"Tamil",year:2026},
+ {title:"Gracias El Clasico",language:"Malayalam",year:2026},
+ {title:"Main Na Raha Mera",language:"Hindi",year:2026},
+ {title:"Little Thomas",language:"Hindi",year:2026},
+ {title:"Tum Mere Ho",language:"Hindi",year:2026},
+ {title:"Daudaak",language:"Other Languages",year:2026},
+ {title:"Kapus Konda",language:"Other Languages",year:2026},
+ {title:"Bana",language:"Other Languages",year:2026},
+ {title:"Magazine",language:"Other Languages",year:2026},
+ {title:"12 Gaam",language:"Other Languages",year:2026},
+ {title:"Border Diaries",language:"Kannada",year:2026},
+ {title:"Sense and Sensibility",language:"English",year:2026},
+ {title:"The Mongoose",language:"English",year:2026},
+ {title:"Wicker",language:"English",year:2026},
+ {title:"Itllu Arjuna",language:"Telugu",year:2026},
+ {title:"#CULT",language:"Telugu",year:2026},
+ {title:"Chimera",language:"Other Languages",year:2026},
+ {title:"Godzilla Minus Zero",language:"Other Languages",year:2026},
+ {title:"I Play Rocky",language:"English",year:2026},
+ {title:"The Cat in the Hat",language:"English",year:2026},
+ {title:"Ramayana",language:"Hindi",year:2026},
+ {title:"Mookuthi Amman 2",language:"Tamil",year:2026},
+ {title:"Manjummel Boys",language:"Malayalam",year:2024,genre:"Survival Thriller"},
+ {title:"Aavesham",language:"Malayalam",year:2024,genre:"Action Comedy"},
+ {title:"Premalu",language:"Malayalam",year:2024,genre:"Romantic Comedy"},
+ {title:"Bramayugam",language:"Malayalam",year:2024,genre:"Horror"},
+ {title:"2018",language:"Malayalam",year:2023,genre:"Disaster Drama"},
+ {title:"Jailer",language:"Tamil",year:2023,genre:"Action"},
+ {title:"Vikram",language:"Tamil",year:2022,genre:"Action Thriller"},
+ {title:"Leo",language:"Tamil",year:2023,genre:"Action Thriller"},
+ {title:"Jawan",language:"Hindi",year:2023,genre:"Action Thriller"},
+ {title:"12th Fail",language:"Hindi",year:2023,genre:"Drama"},
+ {title:"Kalki 2898 AD",language:"Telugu",year:2024,genre:"Science Fiction"},
+ {title:"RRR",language:"Telugu",year:2022,genre:"Action Drama"},
+ {title:"Kantara",language:"Kannada",year:2022,genre:"Action Thriller"},
+ {title:"K.G.F: Chapter 2",language:"Kannada",year:2022,genre:"Action"},
+ {title:"Dune: Part Two",language:"English",year:2024,genre:"Science Fiction"},
+ {title:"Oppenheimer",language:"English",year:2023,genre:"Drama"},
+ {title:"The Wild Robot",language:"English",year:2024,genre:"Animation"},
+ {title:"Lokah Chapter 1: Chandra",language:"Malayalam",year:2025},
+ {title:"Thudarum",language:"Malayalam",year:2025},
+ {title:"Alappuzha Gymkhana",language:"Malayalam",year:2025},
+ {title:"Rekhachithram",language:"Malayalam",year:2025},
+ {title:"Officer on Duty",language:"Malayalam",year:2025},
+ {title:"Ponman",language:"Malayalam",year:2025},
+ {title:"Dies Irae",language:"Malayalam",year:2025},
+ {title:"Narivetta",language:"Malayalam",year:2025},
+ {title:"Eko",language:"Malayalam",year:2025},
+ {title:"Hridayapoorvam",language:"Malayalam",year:2025},
+ {title:"Good Bad Ugly",language:"Tamil",year:2025},
+ {title:"Vidaamuyarchi",language:"Tamil",year:2025},
+ {title:"Dragon",language:"Tamil",year:2025},
+ {title:"Tourist Family",language:"Tamil",year:2025},
+ {title:"Retro",language:"Tamil",year:2025},
+ {title:"Thug Life",language:"Tamil",year:2025},
+ {title:"Maaman",language:"Tamil",year:2025},
+ {title:"Madras Matinee",language:"Tamil",year:2025},
+ {title:"HIT: The Third Case",language:"Telugu",year:2025},
+ {title:"Court: State vs A Nobody",language:"Telugu",year:2025},
+ {title:"Sankranthiki Vasthunam",language:"Telugu",year:2025},
+ {title:"Daaku Maharaaj",language:"Telugu",year:2025},
+ {title:"Thandel",language:"Telugu",year:2025},
+ {title:"Kingdom",language:"Telugu",year:2025},
+ {title:"Mirai",language:"Telugu",year:2025},
+ {title:"Kuberaa",language:"Telugu",year:2025},
+ {title:"Chhaava",language:"Hindi",year:2025},
+ {title:"Sitaare Zameen Par",language:"Hindi",year:2025},
+ {title:"Saiyaara",language:"Hindi",year:2025},
+ {title:"Raid 2",language:"Hindi",year:2025},
+ {title:"Sky Force",language:"Hindi",year:2025},
+ {title:"Kesari Chapter 2",language:"Hindi",year:2025},
+ {title:"Metro... In Dino",language:"Hindi",year:2025},
+ {title:"Housefull 5",language:"Hindi",year:2025},
+ {title:"War 2",language:"Hindi",year:2025},
+ {title:"Ek Deewane Ki Deewaniyat",language:"Hindi",year:2025},
+ {title:"Su From So",language:"Kannada",year:2025},
+ {title:"Kantara: Chapter 1",language:"Kannada",year:2025},
+ {title:"Max",language:"Kannada",year:2025},
+ {title:"Bhairathi Ranagal",language:"Kannada",year:2025},
+ {title:"Yuva",language:"Kannada",year:2025},
+ {title:"Sinners",language:"English",year:2025},
+ {title:"F1",language:"English",year:2025},
+ {title:"Superman",language:"English",year:2025},
+ {title:"Fantastic Four: First Steps",language:"English",year:2025},
+ {title:"Mission: Impossible – The Final Reckoning",language:"English",year:2025},
+ {title:"How to Train Your Dragon",language:"English",year:2025},
+ {title:"Lilo & Stitch",language:"English",year:2025},
+ {title:"Weapons",language:"English",year:2025},
+ {title:"Zootopia 2",language:"English",year:2025},
+ {title:"Avatar: Fire and Ash",language:"English",year:2025},
+ {title:"Ne Zha 2",language:"Other Languages",year:2025},
+ {title:"KPop Demon Hunters",language:"Other Languages",year:2025},
+ {title:"The Secret Agent",language:"Other Languages",year:2025},
+ {title:"It Was Just an Accident",language:"Other Languages",year:2025},
+ {title:"Sentimental Value",language:"Other Languages",year:2025},
+ {title:"No Other Choice",language:"Other Languages",year:2025},
+ {title:"Aadujeevitham",language:"Malayalam",year:2024},
+ {title:"Guruvayoor Ambalanadayil",language:"Malayalam",year:2024},
+ {title:"Kishkindha Kaandam",language:"Malayalam",year:2024},
+ {title:"Sookshmadarshini",language:"Malayalam",year:2024},
+ {title:"ARM",language:"Malayalam",year:2024},
+ {title:"Bougainvillea",language:"Malayalam",year:2024},
+ {title:"Level Cross",language:"Malayalam",year:2024},
+ {title:"Turbo",language:"Malayalam",year:2024},
+ {title:"Anweshippin Kandethum",language:"Malayalam",year:2024},
+ {title:"Nunakuzhi",language:"Malayalam",year:2024},
+ {title:"Adios Amigo",language:"Malayalam",year:2024},
+ {title:"Varshangalkku Shesham",language:"Malayalam",year:2024},
+ {title:"Amaran",language:"Tamil",year:2024},
+ {title:"Meiyazhagan",language:"Tamil",year:2024},
+ {title:"Lubber Pandhu",language:"Tamil",year:2024},
+ {title:"Maharaja",language:"Tamil",year:2024},
+ {title:"Raayan",language:"Tamil",year:2024},
+ {title:"Vettaiyan",language:"Tamil",year:2024},
+ {title:"Vaazhai",language:"Tamil",year:2024},
+ {title:"Garudan",language:"Tamil",year:2024},
+ {title:"Kottukkaali",language:"Tamil",year:2024},
+ {title:"Sorgavaasal",language:"Tamil",year:2024},
+ {title:"Kanguva",language:"Tamil",year:2024},
+ {title:"Aranmanai 4",language:"Tamil",year:2024},
+ {title:"Pushpa 2: The Rule",language:"Telugu",year:2024},
+ {title:"Lucky Baskhar",language:"Telugu",year:2024},
+ {title:"Saripodhaa Sanivaaram",language:"Telugu",year:2024},
+ {title:"Devara: Part 1",language:"Telugu",year:2024},
+ {title:"Hanu-Man",language:"Telugu",year:2024},
+ {title:"Tillu Square",language:"Telugu",year:2024},
+ {title:"Gaami",language:"Telugu",year:2024},
+ {title:"Committee Kurrollu",language:"Telugu",year:2024},
+ {title:"35 Chinna Katha Kaadu",language:"Telugu",year:2024},
+ {title:"Laapataa Ladies",language:"Hindi",year:2024},
+ {title:"Stree 2",language:"Hindi",year:2024},
+ {title:"Munjya",language:"Hindi",year:2024},
+ {title:"Crew",language:"Hindi",year:2024},
+ {title:"Article 370",language:"Hindi",year:2024},
+ {title:"Shaitaan",language:"Hindi",year:2024},
+ {title:"Kill",language:"Hindi",year:2024},
+ {title:"Bhool Bhulaiyaa 3",language:"Hindi",year:2024},
+ {title:"Singham Again",language:"Hindi",year:2024},
+ {title:"Fighter",language:"Hindi",year:2024},
+ {title:"Sector 36",language:"Hindi",year:2024},
+ {title:"UI",language:"Kannada",year:2024},
+ {title:"Bheema",language:"Kannada",year:2024},
+ {title:"Blink",language:"Kannada",year:2024},
+ {title:"Shakhahaari",language:"Kannada",year:2024},
+ {title:"Kotee",language:"Kannada",year:2024},
+ {title:"Martin",language:"Kannada",year:2024},
+ {title:"Krishnam Pranaya Sakhi",language:"Kannada",year:2024},
+ {title:"Laughing Buddha",language:"Kannada",year:2024},
+ {title:"Inside Out 2",language:"English",year:2024},
+ {title:"Deadpool & Wolverine",language:"English",year:2024},
+ {title:"Wicked",language:"English",year:2024},
+ {title:"Gladiator II",language:"English",year:2024},
+ {title:"The Substance",language:"English",year:2024},
+ {title:"Conclave",language:"English",year:2024},
+ {title:"Anora",language:"English",year:2024},
+ {title:"Nosferatu",language:"English",year:2024},
+ {title:"Civil War",language:"English",year:2024},
+ {title:"Kingdom of the Planet of the Apes",language:"English",year:2024},
+ {title:"Furiosa: A Mad Max Saga",language:"English",year:2024},
+ {title:"Beetlejuice Beetlejuice",language:"English",year:2024},
+ {title:"A Complete Unknown",language:"English",year:2024},
+ {title:"Flow",language:"Other Languages",year:2024},
+ {title:"The Seed of the Sacred Fig",language:"Other Languages",year:2024},
+ {title:"I'm Still Here",language:"Other Languages",year:2024},
+ {title:"The Count of Monte Cristo",language:"Other Languages",year:2024},
+ {title:"Emilia Pérez",language:"Other Languages",year:2024},
+ {title:"The Girl with the Needle",language:"Other Languages",year:2024},
+ {title:"The Most Precious of Cargoes",language:"Other Languages",year:2024},
+ {title:"RDX",language:"Malayalam",year:2023},
+ {title:"Kannur Squad",language:"Malayalam",year:2023},
+ {title:"Neru",language:"Malayalam",year:2023},
+ {title:"Malaikottai Vaaliban",language:"Malayalam",year:2023},
+ {title:"King of Kotha",language:"Malayalam",year:2023},
+ {title:"Iratta",language:"Malayalam",year:2023},
+ {title:"Romancham",language:"Malayalam",year:2023},
+ {title:"Pachuvum Athbutha Vilakkum",language:"Malayalam",year:2023},
+ {title:"Thankam",language:"Malayalam",year:2023},
+ {title:"Jan.E.Man",language:"Malayalam",year:2023},
+ {title:"Saudi Vellakka",language:"Malayalam",year:2023},
+ {title:"Purusha Pretham",language:"Malayalam",year:2023},
+ {title:"Jigarthanda DoubleX",language:"Tamil",year:2023},
+ {title:"Maaveeran",language:"Tamil",year:2023},
+ {title:"Por Thozhil",language:"Tamil",year:2023},
+ {title:"Good Night",language:"Tamil",year:2023},
+ {title:"Chithha",language:"Tamil",year:2023},
+ {title:"Parking",language:"Tamil",year:2023},
+ {title:"Mark Antony",language:"Tamil",year:2023},
+ {title:"Viduthalai Part 1",language:"Tamil",year:2023},
+ {title:"Vaathi",language:"Tamil",year:2023},
+ {title:"Dada",language:"Tamil",year:2023},
+ {title:"Ayothi",language:"Tamil",year:2023},
+ {title:"Hi Nanna",language:"Telugu",year:2023},
+ {title:"Balagam",language:"Telugu",year:2023},
+ {title:"Baby",language:"Telugu",year:2023},
+ {title:"Dasara",language:"Telugu",year:2023},
+ {title:"Salaar: Part 1 – Ceasefire",language:"Telugu",year:2023},
+ {title:"Bhagavanth Kesari",language:"Telugu",year:2023},
+ {title:"Miss Shetty Mr Polishetty",language:"Telugu",year:2023},
+ {title:"Virupaksha",language:"Telugu",year:2023},
+ {title:"Bro",language:"Telugu",year:2023},
+ {title:"Animal",language:"Hindi",year:2023},
+ {title:"Pathaan",language:"Hindi",year:2023},
+ {title:"Rocky Aur Rani Kii Prem Kahaani",language:"Hindi",year:2023},
+ {title:"Sam Bahadur",language:"Hindi",year:2023},
+ {title:"OMG 2",language:"Hindi",year:2023},
+ {title:"Zara Hatke Zara Bachke",language:"Hindi",year:2023},
+ {title:"Bholaa",language:"Hindi",year:2023},
+ {title:"The Kerala Story",language:"Hindi",year:2023},
+ {title:"Joram",language:"Hindi",year:2023},
+ {title:"Sirf Ek Bandaa Kaafi Hai",language:"Hindi",year:2023},
+ {title:"Sapta Sagaradaache Ello – Side A",language:"Kannada",year:2023},
+ {title:"Sapta Sagaradaache Ello – Side B",language:"Kannada",year:2023},
+ {title:"Daredevil Musthafa",language:"Kannada",year:2023},
+ {title:"Hostel Hudugaru Bekagiddare",language:"Kannada",year:2023},
+ {title:"Kaatera",language:"Kannada",year:2023},
+ {title:"Toby",language:"Kannada",year:2023},
+ {title:"Aachar & Co",language:"Kannada",year:2023},
+ {title:"Barbie",language:"English",year:2023},
+ {title:"The Super Mario Bros. Movie",language:"English",year:2023},
+ {title:"John Wick: Chapter 4",language:"English",year:2023},
+ {title:"Spider-Man: Across the Spider-Verse",language:"English",year:2023},
+ {title:"Guardians of the Galaxy Vol. 3",language:"English",year:2023},
+ {title:"The Holdovers",language:"English",year:2023},
+ {title:"Poor Things",language:"English",year:2023},
+ {title:"The Boy and the Heron",language:"English",year:2023},
+ {title:"The Creator",language:"English",year:2023},
+ {title:"Past Lives",language:"English",year:2023},
+ {title:"Wonka",language:"English",year:2023},
+ {title:"The Equalizer 3",language:"English",year:2023},
+ {title:"Godzilla Minus One",language:"Other Languages",year:2023},
+ {title:"The Zone of Interest",language:"Other Languages",year:2023},
+ {title:"Anatomy of a Fall",language:"Other Languages",year:2023},
+ {title:"Perfect Days",language:"Other Languages",year:2023},
+ {title:"Society of the Snow",language:"Other Languages",year:2023},
+ {title:"Jana Gana Mana",language:"Malayalam",year:2022},
+ {title:"Bheeshma Parvam",language:"Malayalam",year:2022},
+ {title:"Thallumaala",language:"Malayalam",year:2022},
+ {title:"Nna Thaan Case Kodu",language:"Malayalam",year:2022},
+ {title:"Mukundan Unni Associates",language:"Malayalam",year:2022},
+ {title:"Jaya Jaya Jaya Jaya Hey",language:"Malayalam",year:2022},
+ {title:"Dear Friend",language:"Malayalam",year:2022},
+ {title:"Pada",language:"Malayalam",year:2022},
+ {title:"Palthu Janwar",language:"Malayalam",year:2022},
+ {title:"Kooman",language:"Malayalam",year:2022},
+ {title:"Gold",language:"Malayalam",year:2022},
+ {title:"Ponniyin Selvan: I",language:"Tamil",year:2022},
+ {title:"Ponniyin Selvan: II",language:"Tamil",year:2022},
+ {title:"Thiruchitrambalam",language:"Tamil",year:2022},
+ {title:"Love Today",language:"Tamil",year:2022},
+ {title:"Don",language:"Tamil",year:2022},
+ {title:"Sardar",language:"Tamil",year:2022},
+ {title:"Vikram Vedha",language:"Tamil",year:2022},
+ {title:"Vendhu Thanindhathu Kaadu",language:"Tamil",year:2022},
+ {title:"Sita Ramam",language:"Telugu",year:2022},
+ {title:"Major",language:"Telugu",year:2022},
+ {title:"Karthikeya 2",language:"Telugu",year:2022},
+ {title:"DJ Tillu",language:"Telugu",year:2022},
+ {title:"Ante Sundaraniki",language:"Telugu",year:2022},
+ {title:"Bheemla Nayak",language:"Telugu",year:2022},
+ {title:"Oke Oka Jeevitham",language:"Telugu",year:2022},
+ {title:"Brahmastra: Part One – Shiva",language:"Hindi",year:2022},
+ {title:"Gangubai Kathiawadi",language:"Hindi",year:2022},
+ {title:"The Kashmir Files",language:"Hindi",year:2022},
+ {title:"Monica O My Darling",language:"Hindi",year:2022},
+ {title:"Darlings",language:"Hindi",year:2022},
+ {title:"Bhediya",language:"Hindi",year:2022},
+ {title:"An Action Hero",language:"Hindi",year:2022},
+ {title:"Jhund",language:"Hindi",year:2022},
+ {title:"777 Charlie",language:"Kannada",year:2022},
+ {title:"Vikrant Rona",language:"Kannada",year:2022},
+ {title:"Love Mocktail 2",language:"Kannada",year:2022},
+ {title:"Gaalipata 2",language:"Kannada",year:2022},
+ {title:"Everything Everywhere All at Once",language:"English",year:2022},
+ {title:"Top Gun: Maverick",language:"English",year:2022},
+ {title:"The Batman",language:"English",year:2022},
+ {title:"Avatar: The Way of Water",language:"English",year:2022},
+ {title:"Black Panther: Wakanda Forever",language:"English",year:2022},
+ {title:"The Menu",language:"English",year:2022},
+ {title:"The Banshees of Inisherin",language:"English",year:2022},
+ {title:"Elvis",language:"English",year:2022},
+ {title:"Puss in Boots: The Last Wish",language:"English",year:2022},
+ {title:"Nope",language:"English",year:2022},
+ {title:"Decision to Leave",language:"Other Languages",year:2022},
+ {title:"All Quiet on the Western Front",language:"Other Languages",year:2022},
+ {title:"Close",language:"Other Languages",year:2022},
+ {title:"Argentina, 1985",language:"Other Languages",year:2022},
+ {title:"EO",language:"Other Languages",year:2022},
+ {title:"Kurup",language:"Malayalam",year:2021},
+ {title:"Drishyam 2",language:"Malayalam",year:2021},
+ {title:"The Great Indian Kitchen",language:"Malayalam",year:2021},
+ {title:"Nayattu",language:"Malayalam",year:2021},
+ {title:"Malik",language:"Malayalam",year:2021},
+ {title:"Joji",language:"Malayalam",year:2021},
+ {title:"Minnal Murali",language:"Malayalam",year:2021},
+ {title:"Home",language:"Malayalam",year:2021},
+ {title:"Operation Java",language:"Malayalam",year:2021},
+ {title:"Thinkalazhcha Nishchayam",language:"Malayalam",year:2021},
+ {title:"Jai Bhim",language:"Tamil",year:2021},
+ {title:"Sarpatta Parambarai",language:"Tamil",year:2021},
+ {title:"Doctor",language:"Tamil",year:2021},
+ {title:"Maanaadu",language:"Tamil",year:2021},
+ {title:"Karnan",language:"Tamil",year:2021},
+ {title:"Master",language:"Tamil",year:2021},
+ {title:" மாநாடு",language:"Tamil",year:2021},
+ {title:"Pushpa: The Rise",language:"Telugu",year:2021},
+ {title:"Akhanda",language:"Telugu",year:2021},
+ {title:"Shyam Singha Roy",language:"Telugu",year:2021},
+ {title:"Love Story",language:"Telugu",year:2021},
+ {title:"Jathi Ratnalu",language:"Telugu",year:2021},
+ {title:"Republic",language:"Telugu",year:2021},
+ {title:"Shershaah",language:"Hindi",year:2021},
+ {title:"Sardar Udham",language:"Hindi",year:2021},
+ {title:"Sooryavanshi",language:"Hindi",year:2021},
+ {title:"Mimi",language:"Hindi",year:2021},
+ {title:"Sherni",language:"Hindi",year:2021},
+ {title:"Chandigarh Kare Aashiqui",language:"Hindi",year:2021},
+ {title:"Ramprasad Ki Tehrvi",language:"Hindi",year:2021},
+ {title:"Garuda Gamana Vrishabha Vahana",language:"Kannada",year:2021},
+ {title:"Badava Rascal",language:"Kannada",year:2021},
+ {title:"Yuvarathnaa",language:"Kannada",year:2021},
+ {title:"Roberrt",language:"Kannada",year:2021},
+ {title:"Dune",language:"English",year:2021},
+ {title:"Spider-Man: No Way Home",language:"English",year:2021},
+ {title:"No Time to Die",language:"English",year:2021},
+ {title:"The Mitchells vs. the Machines",language:"English",year:2021},
+ {title:"The Green Knight",language:"English",year:2021},
+ {title:"The Suicide Squad",language:"English",year:2021},
+ {title:"CODA",language:"English",year:2021},
+ {title:"Encanto",language:"English",year:2021},
+ {title:"Drive My Car",language:"Other Languages",year:2021},
+ {title:"The Worst Person in the World",language:"Other Languages",year:2021},
+ {title:"Flee",language:"Other Languages",year:2021},
+ {title:"Lunana: A Yak in the Classroom",language:"Other Languages",year:2021},
+ {title:"Ayyappanum Koshiyum",language:"Malayalam",year:2020},
+ {title:"Anjaam Pathiraa",language:"Malayalam",year:2020},
+ {title:"Forensic",language:"Malayalam",year:2020},
+ {title:"Trance",language:"Malayalam",year:2020},
+ {title:"CU Soon",language:"Malayalam",year:2020},
+ {title:"Kilometers and Kilometers",language:"Malayalam",year:2020},
+ {title:"Soorarai Pottru",language:"Tamil",year:2020},
+ {title:"Putham Pudhu Kaalai",language:"Tamil",year:2020},
+ {title:"Kannum Kannum Kollaiyadithaal",language:"Tamil",year:2020},
+ {title:"Ala Vaikunthapurramuloo",language:"Telugu",year:2020},
+ {title:"Sarileru Neekevvaru",language:"Telugu",year:2020},
+ {title:"V",language:"Telugu",year:2020},
+ {title:"Colour Photo",language:"Telugu",year:2020},
+ {title:"Tanhaji",language:"Hindi",year:2020},
+ {title:"Thappad",language:"Hindi",year:2020},
+ {title:"Ludo",language:"Hindi",year:2020},
+ {title:"Gunjan Saxena: The Kargil Girl",language:"Hindi",year:2020},
+ {title:"Lootcase",language:"Hindi",year:2020},
+ {title:"Chhalaang",language:"Hindi",year:2020},
+ {title:"Dia",language:"Kannada",year:2020},
+ {title:"Love Mocktail",language:"Kannada",year:2020},
+ {title:"Avane Srimannarayana",language:"Kannada",year:2020},
+ {title:"Tenet",language:"English",year:2020},
+ {title:"Soul",language:"English",year:2020},
+ {title:"The Invisible Man",language:"English",year:2020},
+ {title:"Palm Springs",language:"English",year:2020},
+ {title:"The Trial of the Chicago 7",language:"English",year:2020},
+ {title:"Sound of Metal",language:"English",year:2020},
+ {title:"Promising Young Woman",language:"English",year:2020},
+ {title:"Another Round",language:"Other Languages",year:2020},
+ {title:"Minari",language:"Other Languages",year:2020},
+ {title:"The Father",language:"Other Languages",year:2020},
+ {title:"Collective",language:"Other Languages",year:2020},
+ {title:"The Eight Hundred",language:"Other Languages",year:2020},
+ {title:"Kumbalangi Nights",language:"Malayalam",year:2019},
+ {title:"Uyare",language:"Malayalam",year:2019},
+ {title:"Virus",language:"Malayalam",year:2019},
+ {title:"Helen",language:"Malayalam",year:2019},
+ {title:"Driving Licence",language:"Malayalam",year:2019},
+ {title:"Android Kunjappan Version 5.25",language:"Malayalam",year:2019},
+ {title:"Jallikattu",language:"Malayalam",year:2019},
+ {title:"Ishq",language:"Malayalam",year:2019},
+ {title:"June",language:"Malayalam",year:2019},
+ {title:"Thanneer Mathan Dinangal",language:"Malayalam",year:2019},
+ {title:"Asuran",language:"Tamil",year:2019},
+ {title:"Kaithi",language:"Tamil",year:2019},
+ {title:"Super Deluxe",language:"Tamil",year:2019},
+ {title:"Bigil",language:"Tamil",year:2019},
+ {title:"Petta",language:"Tamil",year:2019},
+ {title:"Nerkonda Paarvai",language:"Tamil",year:2019},
+ {title:"Peranbu",language:"Tamil",year:2019},
+ {title:"Comali",language:"Tamil",year:2019},
+ {title:"Maharshi",language:"Telugu",year:2019},
+ {title:"Jersey",language:"Telugu",year:2019},
+ {title:"Agent Sai Srinivasa Athreya",language:"Telugu",year:2019},
+ {title:"Evaru",language:"Telugu",year:2019},
+ {title:"F2: Fun and Frustration",language:"Telugu",year:2019},
+ {title:"Dear Comrade",language:"Telugu",year:2019},
+ {title:"Gully Boy",language:"Hindi",year:2019},
+ {title:"Article 15",language:"Hindi",year:2019},
+ {title:"War",language:"Hindi",year:2019},
+ {title:"Uri: The Surgical Strike",language:"Hindi",year:2019},
+ {title:"Bala",language:"Hindi",year:2019},
+ {title:"Badla",language:"Hindi",year:2019},
+ {title:"Dream Girl",language:"Hindi",year:2019},
+ {title:"Kesari",language:"Hindi",year:2019},
+ {title:"Mardaani 2",language:"Hindi",year:2019},
+ {title:"Bell Bottom",language:"Kannada",year:2019},
+ {title:"Kavaludaari",language:"Kannada",year:2019},
+ {title:"Rustum",language:"Kannada",year:2019},
+ {title:"Birbal Trilogy Case 1",language:"Kannada",year:2019},
+ {title:"Joker",language:"English",year:2019},
+ {title:"Parasite",language:"English",year:2019},
+ {title:"Avengers: Endgame",language:"English",year:2019},
+ {title:"Knives Out",language:"English",year:2019},
+ {title:"1917",language:"English",year:2019},
+ {title:"Once Upon a Time in Hollywood",language:"English",year:2019},
+ {title:"Ford v Ferrari",language:"English",year:2019},
+ {title:"Jojo Rabbit",language:"English",year:2019},
+ {title:"The Irishman",language:"English",year:2019},
+ {title:"Little Women",language:"English",year:2019},
+ {title:"Portrait of a Lady on Fire",language:"Other Languages",year:2019},
+ {title:"Pain and Glory",language:"Other Languages",year:2019},
+ {title:"The Farewell",language:"Other Languages",year:2019},
+ {title:"Les Misérables",language:"Other Languages",year:2019},
+ {title:"Atlantics",language:"Other Languages",year:2019},
+ {title:"Sudani from Nigeria",language:"Malayalam",year:2018},
+ {title:"Ee.Ma.Yau.",language:"Malayalam",year:2018},
+ {title:"Joseph",language:"Malayalam",year:2018},
+ {title:"Varathan",language:"Malayalam",year:2018},
+ {title:"Koode",language:"Malayalam",year:2018},
+ {title:"Aravindante Athidhikal",language:"Malayalam",year:2018},
+ {title:"Theevandi",language:"Malayalam",year:2018},
+ {title:"Njan Prakashan",language:"Malayalam",year:2018},
+ {title:"96",language:"Tamil",year:2018},
+ {title:"Ratsasan",language:"Tamil",year:2018},
+ {title:"Vada Chennai",language:"Tamil",year:2018},
+ {title:"Pariyerum Perumal",language:"Tamil",year:2018},
+ {title:"Imaikkaa Nodigal",language:"Tamil",year:2018},
+ {title:"Kolamavu Kokila",language:"Tamil",year:2018},
+ {title:"Rangasthalam",language:"Telugu",year:2018},
+ {title:"Mahanati",language:"Telugu",year:2018},
+ {title:"Geetha Govindam",language:"Telugu",year:2018},
+ {title:"Goodachari",language:"Telugu",year:2018},
+ {title:"Taxiwaala",language:"Telugu",year:2018},
+ {title:"Andhadhun",language:"Hindi",year:2018},
+ {title:"Badhaai Ho",language:"Hindi",year:2018},
+ {title:"Raazi",language:"Hindi",year:2018},
+ {title:"Tumbbad",language:"Hindi",year:2018},
+ {title:"October",language:"Hindi",year:2018},
+ {title:"Stree",language:"Hindi",year:2018},
+ {title:"Sonu Ke Titu Ki Sweety",language:"Hindi",year:2018},
+ {title:"Mulk",language:"Hindi",year:2018},
+ {title:"K.G.F: Chapter 1",language:"Kannada",year:2018},
+ {title:"Sarkari Hi. Pra. Shaale, Kasaragodu",language:"Kannada",year:2018},
+ {title:"Tagaru",language:"Kannada",year:2018},
+ {title:"Spider-Man: Into the Spider-Verse",language:"English",year:2018},
+ {title:"Avengers: Infinity War",language:"English",year:2018},
+ {title:"A Quiet Place",language:"English",year:2018},
+ {title:"Black Panther",language:"English",year:2018},
+ {title:"Mission: Impossible – Fallout",language:"English",year:2018},
+ {title:"Hereditary",language:"English",year:2018},
+ {title:"Roma",language:"English",year:2018},
+ {title:"Green Book",language:"English",year:2018},
+ {title:"The Favourite",language:"English",year:2018},
+ {title:"Shoplifters",language:"Other Languages",year:2018},
+ {title:"Burning",language:"Other Languages",year:2018},
+ {title:"Cold War",language:"Other Languages",year:2018},
+ {title:"Capernaum",language:"Other Languages",year:2018},
+ {title:"Angamaly Diaries",language:"Malayalam",year:2017},
+ {title:"Take Off",language:"Malayalam",year:2017},
+ {title:"Thondimuthalum Driksakshiyum",language:"Malayalam",year:2017},
+ {title:"Mayaanadhi",language:"Malayalam",year:2017},
+ {title:"Parava",language:"Malayalam",year:2017},
+ {title:"Njandukalude Nattil Oridavela",language:"Malayalam",year:2017},
+ {title:"Mersal",language:"Tamil",year:2017},
+ {title:"Theeran Adhigaaram Ondru",language:"Tamil",year:2017},
+ {title:"Aramm",language:"Tamil",year:2017},
+ {title:"Aruvi",language:"Tamil",year:2017},
+ {title:"Arjun Reddy",language:"Telugu",year:2017},
+ {title:"Baahubali 2: The Conclusion",language:"Telugu",year:2017},
+ {title:"Fidaa",language:"Telugu",year:2017},
+ {title:"Anand",language:"Telugu",year:2017},
+ {title:"Khaidi No. 150",language:"Telugu",year:2017},
+ {title:"Hindi Medium",language:"Hindi",year:2017},
+ {title:"Newton",language:"Hindi",year:2017},
+ {title:"Secret Superstar",language:"Hindi",year:2017},
+ {title:"Bareilly Ki Barfi",language:"Hindi",year:2017},
+ {title:"Tumhari Sulu",language:"Hindi",year:2017},
+ {title:"Shubh Mangal Saavdhan",language:"Hindi",year:2017},
+ {title:"Get Out",language:"English",year:2017},
+ {title:"Coco",language:"English",year:2017},
+ {title:"Blade Runner 2049",language:"English",year:2017},
+ {title:"Dunkirk",language:"English",year:2017},
+ {title:"Logan",language:"English",year:2017},
+ {title:"Wonder Woman",language:"English",year:2017},
+ {title:"Three Billboards Outside Ebbing, Missouri",language:"English",year:2017},
+ {title:"A Fantastic Woman",language:"Other Languages",year:2017},
+ {title:"The Square",language:"Other Languages",year:2017},
+ {title:"Loveless",language:"Other Languages",year:2017},
+ {title:"The Insult",language:"Other Languages",year:2017},
+ {title:"Maheshinte Prathikaaram",language:"Malayalam",year:2016},
+ {title:"Kali",language:"Malayalam",year:2016},
+ {title:"Action Hero Biju",language:"Malayalam",year:2016},
+ {title:"Jacobinte Swargarajyam",language:"Malayalam",year:2016},
+ {title:"Guppy",language:"Malayalam",year:2016},
+ {title:"Kammatipaadam",language:"Malayalam",year:2016},
+ {title:"Kabali",language:"Tamil",year:2016},
+ {title:"Dhuruvangal Pathinaaru",language:"Tamil",year:2016},
+ {title:"Iraivi",language:"Tamil",year:2016},
+ {title:"Aandavan Kattalai",language:"Tamil",year:2016},
+ {title:"Kodi",language:"Tamil",year:2016},
+ {title:"Pelli Choopulu",language:"Telugu",year:2016},
+ {title:"Janatha Garage",language:"Telugu",year:2016},
+ {title:"Dhruva",language:"Telugu",year:2016},
+ {title:"Oopiri",language:"Telugu",year:2016},
+ {title:"Dangal",language:"Hindi",year:2016},
+ {title:"Pink",language:"Hindi",year:2016},
+ {title:"Neerja",language:"Hindi",year:2016},
+ {title:"Kapoor & Sons",language:"Hindi",year:2016},
+ {title:"Udta Punjab",language:"Hindi",year:2016},
+ {title:"Dear Zindagi",language:"Hindi",year:2016},
+ {title:"Arrival",language:"English",year:2016},
+ {title:"La La Land",language:"English",year:2016},
+ {title:"Moonlight",language:"English",year:2016},
+ {title:"Deadpool",language:"English",year:2016},
+ {title:"Zootopia",language:"English",year:2016},
+ {title:"Captain America: Civil War",language:"English",year:2016},
+ {title:"Hacksaw Ridge",language:"English",year:2016},
+ {title:"The Handmaiden",language:"Other Languages",year:2016},
+ {title:"Your Name",language:"Other Languages",year:2016},
+ {title:"The Salesman",language:"Other Languages",year:2016},
+ {title:"Toni Erdmann",language:"Other Languages",year:2016},
+ {title:"Premam",language:"Malayalam",year:2015},
+ {title:"Charlie",language:"Malayalam",year:2015},
+ {title:"Ennu Ninte Moideen",language:"Malayalam",year:2015},
+ {title:"Pathemari",language:"Malayalam",year:2015},
+ {title:"Amar Akbar Anthony",language:"Malayalam",year:2015},
+ {title:"Mad Max: Fury Road",language:"English",year:2015},
+ {title:"Inside Out",language:"English",year:2015},
+ {title:"The Martian",language:"English",year:2015},
+ {title:"Spotlight",language:"English",year:2015},
+ {title:"Ex Machina",language:"English",year:2015},
+ {title:"Room",language:"English",year:2015},
+ {title:"Sicario",language:"English",year:2015}
+];
+const languageNames = ["Malayalam","Tamil","Hindi","Telugu","Kannada","English"];
+const catalogueTargets = {"Malayalam":"Malayalam-language films","Tamil":"Tamil-language films","Hindi":"Hindi-language films","Telugu":"Telugu-language films","Kannada":"Kannada-language films","English":"English-language films"};
+const catalogueStatus = Object.fromEntries(languageNames.map(language => [language, "loading"]));
+let activeLanguage = "All Movies";
+let query = "";
+let visibleLimit = 40;
+const PAGE_SIZE = 40;
+const list = document.getElementById("movie-list");
+const count = document.getElementById("result-count");
+const searchInputs = [document.getElementById("main-search"), document.getElementById("nav-search")];
+document.getElementById("year").textContent = String(new Date().getFullYear());
+
+function trailerUrl(film) {
+  if (film.videoId && /^[A-Za-z0-9_-]{11}$/.test(film.videoId)) {
+    return "https://www.youtube.com/watch?v=" + film.videoId;
+  }
+  return "https://www.youtube.com/results?search_query=" + encodeURIComponent(film.title + " official trailer");
+}
+function matchesLanguage(film) {
+  if (activeLanguage === "All Movies") return true;
+  if (activeLanguage === "Other Languages") return !film.language || !languageNames.includes(film.language);
+  return film.language === activeLanguage;
+}
+function render() {
+  const normalized = query.trim().toLocaleLowerCase();
+  const results = films.filter(film => matchesLanguage(film) &&
+    [film.title, film.language, film.genre, film.year].filter(value => value !== null && value !== undefined).join(" ").toLocaleLowerCase().includes(normalized));
+  count.textContent = results.length + (results.length === 1 ? " title" : " titles");
+  list.replaceChildren();
+  if (!results.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    const heading = document.createElement("strong");
+    heading.textContent = "No matches just yet.";
+    const message = document.createElement("span");
+    message.textContent = "Try another title or choose a different language.";
+    empty.append(heading, message);
+    list.append(empty);
+    return;
+  }
+  const visibleResults = results.slice(0, visibleLimit);
+  visibleResults.forEach((film, index) => {
+    const row = document.createElement("article");
+    row.className = "movie-row";
+    const number = document.createElement("div");
+    number.className = "number";
+    number.textContent = String(index + 1).padStart(2, "0");
+    const info = document.createElement("div");
+    const title = document.createElement("h3");
+    title.className = "movie-title";
+    title.textContent = film.title;
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.textContent = [film.language, film.genre, film.year].filter(value => value !== null && value !== undefined && value !== "").join(" · ") || "Trailer";
+    info.append(title, meta);
+    const watch = document.createElement("a");
+    watch.className = "watch";
+    watch.href = trailerUrl(film);
+    watch.setAttribute("aria-label", "Watch " + film.title + " trailer");
+    if (film.videoId && /^[A-Za-z0-9_-]{11}$/.test(film.videoId)) {
+      watch.addEventListener("click", event => {
+        event.preventDefault();
+        openTrailer(film);
+      });
+    } else {
+      watch.target = "_blank";
+      watch.rel = "noopener noreferrer";
+      watch.setAttribute("aria-label", "Search YouTube for " + film.title + " official trailer (opens in a new tab)");
+    }
+    watch.append(document.createTextNode("Watch on YouTube "), Object.assign(document.createElement("span"), {textContent:"↗", "aria-hidden":"true"}));
+    row.append(number, info, watch);
+    list.append(row);
+  });
+  if (results.length > visibleResults.length) {
+    const moreWrap = document.createElement("div");
+    moreWrap.className = "load-more-wrap";
+    const more = document.createElement("button");
+    more.className = "load-more";
+    more.type = "button";
+    more.textContent = "Load more movies · " + (results.length - visibleResults.length) + " remaining";
+    more.addEventListener("click", () => {
+      visibleLimit += PAGE_SIZE;
+      render();
+    });
+    moreWrap.append(more);
+    list.append(moreWrap);
+  }
+}
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    activeLanguage = button.dataset.language;
+    visibleLimit = PAGE_SIZE;
+    document.querySelectorAll(".filter").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+    render();
+  });
+});
+searchInputs.forEach(input => input.addEventListener("input", () => {
+  query = input.value;
+  visibleLimit = PAGE_SIZE;
+  searchInputs.forEach(other => { if (other !== input) other.value = input.value; });
+  render();
+}));
+document.querySelectorAll("[data-collection]").forEach(link => link.addEventListener("click", () => {
+  activeLanguage = link.dataset.collection;
+  visibleLimit = PAGE_SIZE;
+  document.querySelectorAll(".filter").forEach(item => item.setAttribute("aria-pressed", String(item.dataset.language === activeLanguage)));
+  render();
+}));
+const menuButton = document.getElementById("menu-toggle");
+const nav = document.getElementById("primary-nav");
+menuButton.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", String(open));
+  menuButton.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+  menuButton.textContent = open ? "×" : "☰";
+});
+nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+  nav.classList.remove("open");
+  menuButton.setAttribute("aria-expanded","false");
+  menuButton.setAttribute("aria-label","Open navigation menu");
+  menuButton.textContent = "☰";
+}));
+
+const playerOverlay = document.getElementById("player-overlay");
+const playerFrameWrap = document.getElementById("player-frame-wrap");
+const playerTitle = document.getElementById("player-title");
+const playerClose = document.getElementById("player-close");
+const externalTrailerLink = document.getElementById("external-trailer-link");
+let lastWatchTrigger = null;
+function openTrailer(film) {
+  const url = trailerUrl(film);
+  lastWatchTrigger = document.activeElement;
+  playerTitle.textContent = film.title;
+  externalTrailerLink.href = url;
+  playerFrameWrap.replaceChildren();
+  const frame = document.createElement("iframe");
+  frame.src = "https://www.youtube-nocookie.com/embed/" + film.videoId + "?autoplay=1&rel=0";
+  frame.title = film.title + " trailer";
+  frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
+  frame.referrerPolicy = "strict-origin-when-cross-origin";
+  frame.allowFullscreen = true;
+  playerFrameWrap.append(frame);
+  playerOverlay.hidden = false;
+  document.body.style.overflow = "hidden";
+  playerClose.focus();
+}
+function closeTrailer() {
+  playerOverlay.hidden = true;
+  playerFrameWrap.replaceChildren();
+  document.body.style.overflow = "";
+  if (lastWatchTrigger && typeof lastWatchTrigger.focus === "function") lastWatchTrigger.focus();
+}
+playerClose.addEventListener("click", closeTrailer);
+playerOverlay.addEventListener("click", event => {
+  if (event.target === playerOverlay) closeTrailer();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !playerOverlay.hidden) closeTrailer();
+});
+
+render();
+
+// Fill each language toward 500 unique film pages from Wikipedia's public category API.
+// The existing hand-curated titles remain first; no fake titles or placeholder entries are created.
+async function loadLanguageCatalogue(language, categoryName) {
+  const seen = new Set(films.filter(film => film.language === language).map(film => film.title.trim().toLocaleLowerCase()));
+  let continuation = "";
+  let added = 0;
+  let attempts = 0;
+  try {
+    while (seen.size < 500 && attempts < 5) {
+      const params = new URLSearchParams({
+        action: "query", list: "categorymembers", cmtitle: "Category:" + categoryName,
+        cmtype: "page", cmlimit: "500", format: "json", origin: "*"
+      });
+      if (continuation) params.set("cmcontinue", continuation);
+      const response = await fetch("https://en.wikipedia.org/w/api.php?" + params.toString());
+      if (!response.ok) throw new Error("Catalogue request failed");
+      const data = await response.json();
+      const pages = data && data.query && data.query.categorymembers ? data.query.categorymembers : [];
+      if (!pages.length) break;
+      for (const page of pages) {
+        const title = String(page.title || "").trim();
+        const key = title.toLocaleLowerCase();
+        if (!title || seen.has(key) || seen.size >= 500) continue;
+        // Exclude list/category-like pages rather than presenting them as movie titles.
+        if (/^list of /i.test(title) || / films of the \d{4}s?$/i.test(title) || / filmography$/i.test(title)) continue;
+        seen.add(key);
+        const yearMatch = title.match(/\((19\d{2}|20\d{2}) film\)/i) || title.match(/\((19\d{2}|20\d{2})\)$/);
+        films.push({title, language, year: yearMatch ? Number(yearMatch[1]) : null, source: "Wikipedia category"});
+        added++;
+      }
+      continuation = data && data.continue && data.continue.cmcontinue ? data.continue.cmcontinue : "";
+      attempts++;
+      if (!continuation) break;
+    }
+    catalogueStatus[language] = seen.size >= 500 ? "ready" : "partial";
+  } catch (error) {
+    catalogueStatus[language] = "offline";
+  }
+  render();
+  const button = document.querySelector('.filter[data-language="' + language + '"]');
+  if (button) button.title = language + ": " + seen.size + " titles loaded" + (seen.size >= 500 ? " (target reached)" : " (online catalogue may be incomplete)");
+}
+Promise.allSettled(languageNames.map(language => loadLanguageCatalogue(language, catalogueTargets[language]))).then(() => {
+  const ready = languageNames.filter(language => catalogueStatus[language] === "ready").length;
+  const note = document.querySelector(".hero-note");
+  if (note) note.textContent = ready === languageNames.length
+    ? "500+ titles in each language · searchable trailer links · newest titles first where release year is known."
+    : "Live catalogue loaded where available · each language aims for 500 unique titles. Connect to the internet to expand the list.";
+});
+
+// Reveal the cinematic scene once as it scrolls into view. No continuous scroll handler or image scaling.
+(function initCinematicReveal(){
+  const visual = document.querySelector(".cinema-visual");
+  if (!visual) return;
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    visual.classList.add("is-revealed");
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        visual.classList.add("is-revealed");
+        observer.disconnect();
+        break;
+      }
+    }
+  }, { threshold: 0.22, rootMargin: "0px 0px -5% 0px" });
+  observer.observe(visual);
+})();
+
+</script>
+</body>
+</html>
